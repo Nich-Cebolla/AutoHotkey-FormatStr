@@ -23,7 +23,7 @@ That empty "Extra:" section is offputting and should be removed or handled in so
 
 ## Demo
 
-See file "test\demo-FormatStr.ahk" for a demonstration of the library's functionality.
+See file ["test\demo-FormatStr.ahk"](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/test/demo-FormatStr.ahk) for a demonstration of the library's functionality.
 
 ## How it works
 
@@ -96,8 +96,7 @@ This section gives a basic explanation for using the class. I recommend also rev
 
 ## Terms
 
-In the documentation for this library I use the following terms. For information about the syntax
-associated with the terms, see section "Conditional groups".
+In the documentation for this library I use the following terms.
 
 - **Conditional group**: A group including one or more format specifiers, zero or more significant
   conditions, and zero or more literal strings.
