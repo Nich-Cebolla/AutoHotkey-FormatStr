@@ -120,7 +120,7 @@ This documentation uses the following terms.
 - **Format code type**: A library-defined type system that is used to specify when the function
   associated with the format code should be called.
 
-- **Format function**: The value returned by `FormatStr.Prototype.Call`. The function object
+- **Format function**: The value returned by `FormatStr.Prototype.__New`. The function object
   that processes the format string and produces the output text.
 
 - **Format specifier**: A keyword enclosed in percent symbols ( % ) that is intended to be
@@ -160,7 +160,7 @@ output.
 
 ```ahk
  names := [ "message", "extra" ]
- FormatStr_Callback(FormatSpecifierName, Params,) {
+ FormatStr_Callback(FormatSpecifierName, Params, *) {
      return Params.%FormatSpecifierName%
  }
  constructor := FormatStrConstructor(names, { Callback: FormatStr_Callback })
