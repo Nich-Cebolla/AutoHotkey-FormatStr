@@ -37,7 +37,7 @@
  *
  * ## Demo
  *
- * See file "test\demo-FormatStr.ahk" for a demonstration of the library's functionality.
+ * See file {@link Demo "test\demo-FormatStr.ahk"} for a demonstration of the library's functionality.
  *
  * ## How it works
  *
@@ -111,10 +111,9 @@
  *  MsgBox(output)
  * @
  *
- * ## Terms
+ * ## Glossary
  *
- * In the documentation for this library I use the following terms. For information about the syntax
- * associated with the terms, see section "Conditional groups".
+ * This documentation uses the following terms.
  *
  * - Conditional group: A group including one or more format specifiers, zero or more significant
  *   conditions, and zero or more literal strings.

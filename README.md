@@ -94,7 +94,7 @@ This section gives a basic explanation for using the class. I recommend also rev
  MsgBox(output)
 ```
 
-## Terms
+## Glossary
 
 This documentation uses the following terms.
 
