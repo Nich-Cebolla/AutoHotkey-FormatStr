@@ -1,6 +1,6 @@
 # AutoHotkey-FormatStr
 
-An AutoHotkey (AHK) library for creating highly customizable text formatting logic to suit any project's needs.
+An AutoHotkey (AHK) library for creating customizable and extensible text formatting logic to suit any project's needs.
 
 ## Introduction
 
