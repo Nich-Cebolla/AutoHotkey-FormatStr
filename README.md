@@ -96,7 +96,7 @@ This section gives a basic explanation for using the class. I recommend also rev
 
 ## Terms
 
-In the documentation for this library I use the following terms.
+This documentation uses the following terms.
 
 - **Conditional group**: A group including one or more format specifiers, zero or more significant
   conditions, and zero or more literal strings.
