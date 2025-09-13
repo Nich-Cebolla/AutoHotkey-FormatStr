@@ -310,6 +310,8 @@ Format codes can be typed or untyped. There are currently two types:
   4. If the format code was within a conditional group, the conditional group token. Else,
      an empty string.
 
+All untyped format codes are treated as standard.
+
 To refer to a specific type you will use one of the global variables which contains the type
 index. Currently, the global variables are:
 - FORMATSTR_FORMATCODE_TYPE_CALL_EARLY
