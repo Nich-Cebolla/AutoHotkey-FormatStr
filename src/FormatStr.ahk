@@ -1,5 +1,5 @@
 ﻿/*
-    Github: https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/src/FormatStr.ahk/
+    Github: https://github.com/Nich-Cebolla/AutoHotkey-FormatStr
     Author: Nich-Cebolla
     License: MIT
 */

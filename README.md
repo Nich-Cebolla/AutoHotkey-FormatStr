@@ -23,7 +23,7 @@ That empty "Extra:" section is offputting and should be removed or handled in so
 
 ## Demo
 
-See file ["test\demo-FormatStr.ahk"](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/test/demo-FormatStr.ahk) for a demonstration of the library's functionality.
+See file ["test\demo-FormatStr.ahk"](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk) for a demonstration of the library's functionality.
 
 ## How it works
 
@@ -44,7 +44,7 @@ Your code calls the format function with zero to two parameters, and the format 
 ## Quick start
 
 This section gives a basic explanation for using the class. I recommend also reviewing the
-[demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/test/demo-FormatStr.ahk). The demo file can be run as-is.
+[demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk). The demo file can be run as-is.
 
 1. Define format specifier names as an array of strings. These are the symbols that you or your
    users will enclose in percent symbols to specify a particular datum to include in the
@@ -254,7 +254,7 @@ functions must accept one to four parameters:
 4. If the token is part of a conditional group, the conditional group token. Else, an
    empty string.
 
-See the [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/test/demo-FormatStr.ahk) file for some examples.
+See the [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk) file for some examples.
 
 ## Format codes
 
@@ -368,7 +368,7 @@ All untyped format codes are treated as standard.
 
 Format codes may have parameters, which are indicated by appending a colon character and any
 string to the format code. This additional string is passed to the function associated with the
-format code. See the [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/test/demo-FormatStr.ahk) file for an example.
+format code. See the [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk) file for an example.
 
 ### Default format codes
 
