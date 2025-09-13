@@ -13,12 +13,23 @@
 /**
  * ## Introduction
  *
- * The purpose of `FormatStr` is to provide a systematic method for producing formatted text
- * where some segments of the output are included conditionally as a function of the presence
- * of one or more pieces of information.
+ * `FormatStr` makes it easy to create a unique, customizable, and extensible text formatting system
+ * just like the standard printf-style format codes "%d", "%u", "%i", and the like. With a feature-rich
+ * API based on caller-defined callback functions, there's no limit to the possibilities.
  *
- * For example, say we are logging error information to file and we pass an error object to
- * our logger, and it outputs the following text.
+ * The core functionality involves defining a list of symbols, called "format specifiers", which
+ * will ultimately be replaced by some data when producing the output text. Along with the format
+ * specifiers the caller must define one or more callback functions that facilitates the formatting
+ * logic. Format specifiers can contain any character except the colon and are enclosed in percent
+ * symbols to indicate that the text is a format specifier.
+ *
+ * Format specifiers can be grouped together along with plain text in a "conditional group". A conditional
+ * group is a segment of the format string which will only be included in the output text if one
+ * or more of the format specifiers are replaced with one or more characters (that is, if all format
+ * specifiers are replaced with an empty string, none of the text is included in the output).
+ *
+ * For example, say we are logging error information to file and we pass an error object to our
+ * logger, and it outputs the following text.
  *
  * <pre>
  * File: C:\users\me\documents\AutoHotkey\lib\Script.ahk
@@ -27,13 +38,8 @@
  * Extra:
  * </pre>
  *
- * That empty "Extra:" section is offputting to me, and I would want to exclude it if there was
- * no extra information. Although it would be straightforward to modify the logger to check that
- * conditionally, there is little reusability in that sort of function because that logic will be
- * specific to that context. It also makes it difficult to expose functionality to the caller for
- * exported functions.
- *
- * `FormatStr` is a custom system for defining an output format that includes conditional segments.
+ * That empty "Extra:" section is offputting and should be removed or handled in some way. `FormatStr`
+ * makes this easy.
  *
  * ## Demo
  *
