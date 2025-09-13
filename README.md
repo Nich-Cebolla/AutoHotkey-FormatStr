@@ -63,10 +63,11 @@ This section gives a basic explanation for using the class. I recommend also rev
 6. (Optional) Create an options object.
 7. Call the class constructors.
 8. Call the `FormatStr` instance with zero to two parameters:
-  1. Any value to pass to the callback.
-  2. A callback function, if you didn't specify a function in the options or if you want to
-     use a different one. If you pass a value to the second parameter, that function is used
-     instead of the function that was passed to the options (if any).
+  - Parameters:
+    1. Any value to pass to the callback.
+    2. A callback function, if you didn't specify a function in the options or if you want to
+       use a different one. If you pass a value to the second parameter, that function is used
+       instead of the function that was passed to the options (if any).
 
 ```ahk
  ; Define format specifier names.
