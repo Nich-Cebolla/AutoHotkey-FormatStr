@@ -371,7 +371,12 @@
  * 1. The format code name. This is what you or the user writes between percent symbols to
  *    specify the format code.
  * 2. The function object to associate with the format code.
- * 3. The format type index, passed using one of the global variablse.
+ * 3. The format type index.
+ *
+ * ### Untyped format codes
+ *
+ * To use untyped format codes you can fill any map object with the values. The keys are the format
+ * code names and the values are the function objects.
  *
  * ### Format code parameters
  *
@@ -386,11 +391,11 @@
  *
  * <pre>
  *
- * |  Name           |  Type          |  Description                                                         |
- * |  ---------------|----------------|--------------------------------------------------------------------  |
- * |  !a             |  Early         |  Directs the format function to require that all conditions /        |
- * |                 |                |  significant conditions within a conditional group are satisfied to  |
- * |                 |                |  include the segment in the output text.                             |
+ * |  Name           |  Type          |  Description                                                |
+ * |  ---------------|----------------|-----------------------------------------------------------  |
+ * |  !a             |  Early         |  Directs the format function to require that all conditions |
+ * |                 |                |  / significant conditions within a conditional group are    |
+ * |                 |                |  satisfied to include the segment in the output text.       |
  *
  * </pre>
  *
