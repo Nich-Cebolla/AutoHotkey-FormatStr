@@ -279,7 +279,7 @@ Format codes can be global, which causes its associated function to be called af
 entire output string has been constructed. Place a format code outside of a conditional group
 to make it global.
 
-Format codes can be conditional, which causes its associated function to be called
+Format codes can be local, which causes its associated function to be called
 after the conditional group has been processed and only if the condition was satisfied.
 Place a format code within a conditional group to make it local.
 
