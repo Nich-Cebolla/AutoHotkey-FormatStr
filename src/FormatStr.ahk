@@ -7,11 +7,12 @@
 ; An AutoHotkey (AHK) library for creating customizable and extensible text formatting logic to suit any project's needs.
 
 #include collections.ahk
+#include DefaultFormatCodes.ahk
+#include DefaultSpecifierCodes.ahk
 #include lib.ahk
 #include tokens.ahk
 
 /**
- *
  * `FormatStr` makes it easy to create a unique, customizable, and extensible text formatting system
  * just like the standard printf-style format codes "%d", "%u", "%i", and the like. With a feature-rich
  * API based on caller-defined callback functions, there's no limit to the possibilities.
@@ -92,7 +93,6 @@ class FormatStrConstructor {
         , FORMATSTR_TYPE_INDEX_PLAINTEXT
         , FORMATSTR_TYPE_INDEX_SIGNIFICANTCONDITION
         , FORMATSTR_TYPE_INDEX_SIMPLECONDITION
-        this.DeleteProp('__New')
         FormatStr_SetConstants()
         prototypes := this.Prototypes := FormatStr_PrototypeCollection()
         prototypes.Capacity := 8
@@ -114,6 +114,7 @@ class FormatStrConstructor {
             defaultFormatCodeMap.Set(name, String(A_Index), String(A_Index), name)
         }
         this.DefaultSpecifierCodes := Map(
+
         )
         this.DefaultFormatCodes.Default :=
         defaultFormatCodeMap.Default :=
@@ -145,6 +146,7 @@ class FormatStrConstructor {
           , DefaultOperators: options.DefaultOperators
           , DefaultOperatorsLowerCode: options.DefaultOperatorsLowerCode
           , FormatCodes: options.FormatCodes
+          , IndentLen: options.IndentLen
           , SpecifierCodes: options.SpecifierCodes
           , StrCapacity: options.StrCapacity
           , SubstringPattern: _ProcNames(FormatSpecifierNames, options.CaseSense)
@@ -186,7 +188,9 @@ class FormatStrConstructor {
                 if !InStr(first, c, CaseSense) {
                     first .= c
                 }
-                remainder .= SubStr(s, 2) '|'
+                if StrLen(s) > 1 {
+                    remainder .= SubStr(s, 2) '|'
+                }
             }
             return (
                 '(?<open>\{)'
@@ -219,6 +223,7 @@ class FormatStrConstructor {
           , DefaultOperators: '[\x{2000}-\x{2009}]'
           , DefaultOperatorsLowerCode: 0x2000
           , FormatCodes: ''
+          , IndentLen: 4
           , SortLocaleName: 0
           , SortFlags: 0
           , SortNLSVersionInfo: 0
@@ -306,7 +311,8 @@ class FormatStr {
         prototype.TOKEN_FORMAT_SPECIFIER := TOKEN_FORMAT_SPECIFIER
         prototype.TOKEN_SIGNIFICANT_CONDITION := TOKEN_SIGNIFICANT_CONDITION
         prototype.Names := this.Names
-        prototypes := FormatStrConstructor.GetPrototypes(prototype)
+        prototype.IndentLen := this.IndentLen
+        prototypes := FormatStr_GetPrototypes(prototype)
         constructors := this.Constructors := FormatStr_ConstructorCollection()
         constructors.Capacity := prototypes.Length
         for prototype in prototypes {
