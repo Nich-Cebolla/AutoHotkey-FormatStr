@@ -427,6 +427,69 @@ class FormatStrConstructor {
     static __New() {
         this.DeleteProp('__New')
         this.__Initialize()
+    }
+    /**
+     * The purpose of {@link FormatStrConstructor.Initialize} is to give external code a meaningful
+     * entrypoint for invoking the initialization logic. The following information explains why
+     * {@link FormatStrConstructor.Initialize} just deletes itself, and is intended for readers
+     * who do not yet have a strong understanding of AutoHotkey's class system.
+     *
+     * When AutoHotkey processes the {@link https://www.autohotkey.com/docs/v2/Scripts.htm#auto auto-execute thread},
+     * it proceeds in top-down order until reaching the end.
+     *
+     * Class objects are initialized when the auto-execute thread reaches the class definition, or
+     * when the class is first referenced, whichever occurs first.
+     *
+     * In the case of {@link FormatStrConstructor}, the class initialization logic includes setting
+     * a number of global variables. A subset of these global variables might be needed by external
+     * code to prepare the functions and options it will use.
+     *
+     * If {@link FormatStrConstructor} has not yet been referenced or reached in the auto-execute
+     * thread, using the global variables will throw an unset var error.
+     *
+     * To handle this, this library's documentation directs the user to call
+     * {@link FormatStrConstructor.Initialize} to set the global variables with their values.
+     *
+     * In some cases, the call to {@link FormatStrConstructor.Initialize} will be the first time
+     * {@link FormatStrConstructor} was referenced. When this is true, AutoHotkey will automatically
+     * call {@link FormatStrConstructor.__New} BEFORE calling {@link FormatStrConstructor.Initialize}.
+     * If both methods are defined to initialize the values, then the values will be initialized
+     * twice consecutively, which is a waste of processing time and also can cause issues depending
+     * on the initialization logic.
+     *
+     * In other cases, the call to {@link FormatStrConstructor.Initialize} will not be the first
+     * time {@link FormatStrConstructor} was referenced, and so re-initializing the values might
+     * incidentally overwrite the existing values depending on the initialization logic.
+     *
+     * Consequently, the optimal approach is to define {@link FormatStrConstructor.Initialize} to
+     * do nothing. If the call to {@link FormatStrConstructor.Initialize} is also the first time
+     * {@link FormatStrConstructor} is referenced, then {@link FormatStrConstructor.__New} is called
+     * and the values are still initialized. If the call to {@link FormatStrConstructor.Initialize}
+     * is not the first time {@link FormatStrConstructor} is referenced, then the values are
+     * already initialized and we don't want to re-initialize them.
+     *
+     * Here is the actual sequence of execution that occurs when a call to
+     * {@link FormatStrConstructor.Initialize} is the first time {@link FormatStrConstructor} is
+     * referenced:
+     *
+     * 1. Code calls {@link FormatStrConstructor.Initialize}.
+     * 2. AutoHotkey calls `FormatStrConstructor.__Init` (method defined by AutoHotkey not seen in our code).
+     * 3. AutoHotkey calls `FormatStrConstructor.Options.__Init` (method defined by AutoHotkey not seen in our code).
+     * 4. AutoHotkey calls {@link FormatStrConstructor.__New}.
+     * 5. The body of {@link FormatStrConstructor.__New} calls {@link FormatStrConstructor.__Initialize}.
+     * 6. The original call to {@link FormatStrConstructor.Initialize} is finally processed, which
+     *    simply deletes itself so future calls will throw an error.
+     *
+     * This avoids the issue of double-consecutive-initialization while still providing a meaningful
+     * method for callers to use to set the global variables.
+     */
+    static Initialize() {
+        if this.HasOwnProp('Initialize') {
+            this.DeleteProp('Initialize')
+        }
+    }
+    ; Do not call "__Initialize"; call "Initialize" instead.
+    static __Initialize() {
         global FORMATSTR_TYPE_INDEX_CONDITIONALGROUP
         , FORMATSTR_TYPE_INDEX_DEFAULTFORMATCODE
         , FORMATSTR_TYPE_INDEX_FORMATCODE
