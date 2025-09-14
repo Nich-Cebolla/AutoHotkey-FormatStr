@@ -5,16 +5,10 @@
 Demo()
 
 /**
- * The callback function should accept one to four parameters.
- * 1. The format specifier name.
- * 2. The value passed to the "Params" parameter of `FormatStr.Prototype.Call`.
- * 3. The token object.
- * 4. If the token object is part of a conditional group, the conditional group token object. Else,
- *    an empty string.
- * The first parameter is the name of
- * the replaement string that is being evaluated. The second parameter is any value you pass
- * to {@link FormatStr.Prototype.Call} when producing the output. In this case, the value is
- * the error object that we are processing to output to file.
+ * This is the function that is passed to `Options.Callback`.
+ * The first parameter is the name of the replaement string that is being evaluated. The second
+ * parameter is any value you pass to {@link FormatStr.Prototype.Call} when producing the output.
+ * In this case, the value is the error object that we are processing to output to file.
  */
 Demo_Process(Name, Params, *) {
     return Params.%Name%
@@ -55,7 +49,7 @@ class Demo {
         options := { Callback: Demo_Process }
 
         ; Define the format specifier string names as an array of strings. In our example we will be
-        ; using error objects, so we will use those names.
+        ; using error objects, so we will use the property names.
         names := this.names_basic := []
         e := error()
         names.Capacity := ObjGetCapacity(e)
@@ -176,16 +170,8 @@ class Demo {
 
         ; The codes are associated with some function that is intended to make some changes to
         ; the text. When the format function is called, if a token is associated with a specifier
-        ; code, the function associated with that code is called before adding that substring to
+        ; code, the function associated with that code is called before adding that segment to
         ; the output text.
-
-        ; When you define the functions which will be associated with the specifier codes, the
-        ; functions must accept one to four parameters:
-        ; 1. The string that is to be adjusted.
-        ; 2. The value passed to the "Params" parameter of `FormatStr.Prototype.Call`.
-        ; 3. The token that produced the value passed to the first parameter.
-        ; 4. If the token is part of a conditional group, the conditional group token. Else, an
-        ;    empty string.
 
         ; This function converts absolute file paths to just the file name.
         SpecifierCodeFunction_FilePath(Str, *) {
@@ -289,31 +275,10 @@ class Demo {
         ; and if my format string has "%myCode%" in it, "myCode" is interpreted as a format code.
         ; Format codes may contain any character except a colon.
 
-        ; Format codes can be typed or untyped. This example only addresses untyped format codes.
-        ; Typed format codes have additional logic to work with. See documentation section
-        ; "Format code types" for more information.
-
         ; The codes are associated with some function that is intended to make some changes to
         ; the text.
 
-        ; Format codes can be global, which causes its associated function to be called after the
-        ; entire string has been constructed. Place these outside of a conditional group.
-
-        ; Format codes can be conditional, which causes its associated function to be called
-        ; after the conditional group has been processed and only if the condition was satisfied.
-        ; Place these within the target conditional group.
-
-        ; Format codes are removed completely from the output text and are stored separately from
-        ; the other tokens.
-
-        ; When you define the functions which will be associated with the format codes, the functions
-        ; must accept one to four parameters:
-        ; 1. The string that is to be adjusted. This must be a `VarRef`.
-        ; 2. The value passed to the `Params` parameter of `FormatStr.Prototype.Call`.
-        ; 3. If parameters were included with the format code, the parameters. Else, an empty string.
-        ;    Format code parameters are not seen here, but are seen in "AddFormatCodeParameters".
-        ; 4. If the format code was within a conditional group, the conditional group token. Else,
-        ;    an empty string.
+        ; See the documentation for more info.
 
         ; In this example, the parameter `Len` is to be bound with an integer, and we do not need
         ; the second or third parameters. This pads the left side of the string with spaces. The number
@@ -516,13 +481,7 @@ class Demo {
         ; Default format codes are built-in codes. See the documentation for a list of
         ; default format codes.
 
-        ; The default format code names begin with "!". If one of the format codes or format
-        ; specifier names is the same as one of the default code names, your code takes precedence
-        ; and the built-in functionality is not used.
-
-        ; Default format codes are always typed. (Though it's not discussed in "AddFormatCodes",
-        ; caller-defined format codes can be typed as well). See documentation section "Format code
-        ; types" for more details.
+        ; Default format codes are always typed.
 
         ; Default format codes may have placement restrictions, e.g. "%!a%" can only be placed within
         ; a conditional group.
