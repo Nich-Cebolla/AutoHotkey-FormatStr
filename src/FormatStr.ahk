@@ -171,7 +171,6 @@ class FormatStrConstructor {
           , DefaultOperators: options.DefaultOperators
           , DefaultOperatorsLowerCode: options.DefaultOperatorsLowerCode
           , FormatCodes: options.FormatCodes
-          , IndentLen: options.IndentLen
           , SpecifierCodes: options.SpecifierCodes
           , StrCapacity: options.StrCapacity
           , SubstringPattern: _ProcNames(FormatSpecifierNames, options.CaseSense)
@@ -336,7 +335,6 @@ class FormatStr {
         prototype.TOKEN_FORMAT_SPECIFIER := TOKEN_FORMAT_SPECIFIER
         prototype.TOKEN_SIGNIFICANT_CONDITION := TOKEN_SIGNIFICANT_CONDITION
         prototype.Names := this.Names
-        prototype.IndentLen := this.IndentLen
         prototypes := FormatStr_GetPrototypes(prototype)
         constructors := this.Constructors := FormatStr_ConstructorCollection()
         constructors.Capacity := prototypes.Length
