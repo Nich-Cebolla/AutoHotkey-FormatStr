@@ -119,44 +119,6 @@ class FormatStrConstructor {
         defaultFormatCodeMap.Default :=
         this.DefaultSpecifierCodes.Default := ''
     }
-    static GetPrototypes(Base) {
-        if not Base is Array {
-            throw TypeError('``Base`` must inherit from ``Array``.', -1)
-        }
-        result := FormatStr_PrototypeCollection()
-        prototypes := this.Prototypes
-        result.Length := prototypes.Length
-        _base := _GetBase(FormatStrTokenBase.Prototype)
-        ObjSetBase(_base, Base)
-        base_formatSpecifier := _GetBase(FormatStrToken_FormatSpecifierBase.Prototype)
-        ObjSetBase(base_formatSpecifier, _base)
-        _Proc([ FORMATSTR_TYPE_INDEX_CONDITIONALGROUP, FORMATSTR_TYPE_INDEX_PLAINTEXT ], _base)
-        _Proc(
-            [   FORMATSTR_TYPE_INDEX_FORMATCODE
-              , FORMATSTR_TYPE_INDEX_FORMATSPECIFIER
-              , FORMATSTR_TYPE_INDEX_SIGNIFICANTCONDITION
-              , FORMATSTR_TYPE_INDEX_SIMPLECONDITION
-            ]
-          , base_formatSpecifier
-        )
-        _Proc([ FORMATSTR_TYPE_INDEX_DEFAULTFORMATCODE ], prototypes[FORMATSTR_TYPE_INDEX_FORMATCODE])
-
-        return result
-
-        _GetBase(proto) {
-            local base := []
-            for prop in proto.OwnProps() {
-                base.DefineProp(prop, proto.GetOwnPropDesc(prop))
-            }
-            return base
-        }
-        _Proc(indices, base) {
-            for i in indices {
-                result[i] := _GetBase(prototypes[i])
-                ObjSetBase(result[i], base)
-            }
-        }
-    }
 
     __New(FormatSpecifierNames, Options?) {
         options := FormatStrConstructor.Options(Options ?? unset)
