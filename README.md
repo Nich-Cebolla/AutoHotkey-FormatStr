@@ -2,7 +2,7 @@
 
 An AutoHotkey (AHK) library for creating customizable and extensible text formatting logic to suit any project's needs.
 
-## Introduction
+# Introduction
 
 `FormatStr` makes it easy to create a unique, customizable, and extensible text formatting system just like the standard printf-style format codes "%d", "%u", "%i", and the like. With a feature-rich API based on caller-defined callback functions, there's no limit to the possibilities.
 
@@ -21,11 +21,11 @@ Extra:
 
 That empty "Extra:" section is offputting and should be removed or handled in some way. `FormatStr` makes this easy.
 
-## Demo
+# Demo
 
 See file ["test\demo-FormatStr.ahk"](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk) for a demonstration of the library's functionality.
 
-## How it works
+# How it works
 
 Your code provides a list of symbols that are used by your format string, and `FormatStrConstructor`
 returns a function that can be called to produce `FormatStr` objects. This documentation refers to
@@ -41,7 +41,7 @@ replaced by text when you call the format function. Format specifiers are enclos
 
 Your code calls the format function with zero to two parameters, and the format function returns the formatted text.
 
-## Quick start
+# Quick start
 
 This section gives a basic explanation for using the class. I recommend also reviewing the
 [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk). The demo file can be run as-is.
@@ -95,7 +95,7 @@ This section gives a basic explanation for using the class. I recommend also rev
  MsgBox(output)
 ```
 
-## Glossary
+# Glossary
 
 This documentation uses the following terms.
 
@@ -142,7 +142,7 @@ This documentation uses the following terms.
 - **Specifier code**: A string appended to a format specifier separated by a colon character.
   Specifier codes are used as a flag to invoke some action defined by the caller.
 
-## Conditional groups
+# Conditional groups
 
 The primary use case for this library is to expose a means of systematically including text
 segments in the output as a function of whether or not some data was available at the time
@@ -175,7 +175,7 @@ output.
  MsgBox(_formatStr(err2)) ; Message: Error; Extra: Extra info
 ```
 
-### Multiple format specifiers
+## Multiple format specifiers
 
 `FormatStr` supports multiple format specifiers within a single conditional group. Only one
 of the format specifiers must be replaced with one or more characters to be included in the
@@ -198,7 +198,7 @@ output.
  MsgBox(_formatStr(err2)) ; Message: ; Extra: Extra info
 ```
 
-### Significant conditions
+## Significant conditions
 
 Format specifier strings can be marked as a significant condition by enclosing the format specifier
 string in curly braces with no additional text. When a conditional group contains one or more
@@ -227,7 +227,7 @@ conditions.
  MsgBox(_formatStr(err2)) ; Message: Error; What: auto-execute; Extra: Extra info
 ```
 
-## Specifier codes
+# Specifier codes
 
 Specifier codes (and format codes) are a means for extending the library's functionality with
 custom logic.
@@ -241,11 +241,11 @@ the text. When the format function is called, if a token is associated with a sp
 code, the function associated with that code is called before adding that substring to
 the output text.
 
-### Default specifier codes
+## Default specifier codes
 
 There are currently no default specifier codes.
 
-### Custom specifier codes
+## Custom specifier codes
 
 When you define the functions which will be associated with the specifier codes, the
 functions must accept one to four parameters:
@@ -257,7 +257,7 @@ functions must accept one to four parameters:
 
 See the [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk) file for some examples.
 
-## Format codes
+# Format codes
 
 Format codes (and specifier codes) are a means for extending the library's functionality with
 custom logic.
@@ -274,7 +274,7 @@ the text.
 Format codes are removed completely from the output text and are stored separately from
 the other tokens.
 
-### Format code scope
+## Format code scope
 
 Format codes can be global, which causes its associated function to be called after the
 entire output string has been constructed. Place a format code outside of a conditional group
@@ -284,7 +284,7 @@ Format codes can be local, which causes its associated function to be called
 after the conditional group has been processed and only if the condition was satisfied.
 Place a format code within a conditional group to make it local.
 
-### Format code types
+## Format code types
 
 Format codes can be typed or untyped. There are currently two types:
 
@@ -318,7 +318,7 @@ index. Currently, the global variables are:
 - FORMATSTR_FORMATCODE_TYPE_CALL_EARLY
 - FORMATSTR_FORMATCODE_TYPE_CALL_STANDARD
 
-If your code throws an unset variable error, call `FormatStr_SetConstants` somewhere before
+If your code throws an unset variable error, call `FormatStrConstructor.Initialize` somewhere before
 your code refers to one of the variables.
 
 To use typed format codes, you must get an instance of `FormatStr_FormatCodesCollection`
@@ -358,36 +358,30 @@ values passed to the constructor are processed in groups of three in the order o
 2. The function object to associate with the format code.
 3. The format type index.
 
-### Untyped format codes
+## Untyped format codes
 
 To use untyped format codes you can fill any map object with the values. The keys are the format
 code names and the values are the function objects.
 
 All untyped format codes are treated as standard.
 
-### Format code parameters
+## Format code parameters
 
 Format codes may have parameters, which are indicated by appending a colon character and any
 string to the format code. This additional string is passed to the function associated with the
 format code. See the [demo](https://github.com/Nich-Cebolla/AutoHotkey-FormatStr/blob/main/test/demo-FormatStr.ahk) file for an example.
 
-### Default format codes
+## Default format codes
 
 Default format codes are built-in format codes that provide standard functionality. Below is
 a table of the default format codes.
 
-<pre>
+### Default format codes - early
 
-|  Name           |  Type          |  Description                                                |
-|  ---------------|----------------|-----------------------------------------------------------  |
-|  !a             |  Early         |  Directs the format function to require that all conditions |
-|                 |                |  / significant conditions within a conditional group are    |
-|                 |                |  satisfied to include the segment in the output text.       |
+- **!a** - Directs the format function to require that all conditions / significant conditions within
+       a conditional group are satisfied to include the segment in the output text.
 
-</pre>
-
-
-## Escape sequences
+# Escape sequences
 
 There are three operators used by the format strings: % { }
 
