@@ -425,6 +425,7 @@
  */
 class FormatStrConstructor {
     static __New() {
+        this.DeleteProp('__New')
         global FORMATSTR_TYPE_INDEX_CONDITIONALGROUP
         , FORMATSTR_TYPE_INDEX_DEFAULTFORMATCODE
         , FORMATSTR_TYPE_INDEX_FORMATCODE
