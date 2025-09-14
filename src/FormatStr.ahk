@@ -121,6 +121,31 @@ class FormatStrConstructor {
         this.DefaultSpecifierCodes.Default := ''
     }
 
+    /**
+     * @param {String[]} FormatSpecifierNames - An array of format specifier names. These are the
+     * symbols that the user will enclose in percent signs to include the format specifier in their
+     * format string. When you code calls {@link FormatStr.Prototype.Call} to produces formatted text,
+     * the format specifier name is passed to the first parameter of `Options.Callback`.
+     * `Options.Callback` is expected to return the string that will replace the format specifier
+     * in the formatted text.
+     *
+     * @param {*} [ Options.Callback = "" ] - A `Func` or callable object that is called once for each
+     * format specifier when producing the output text.
+     *
+     * @param {Boolean} [ Options.CaseSense = false ] - When true, most logic that involves comparing
+     * strings is performed with case sensitivity. When false, all logic that involves comparing
+     * strings is performed without case sensitivity.
+     *
+     * @param {Map|FormatStr_FormatCodesCollection} [ Options.FormatCodes = "" ] - Custom format
+     * codes. See the documentation for details.
+     *
+     * @param {Map} [ Options.SpecifierCodes = "" ] - Custom specifier codes. See the documentation
+     * for details.
+     *
+     * @param {Integer} [ Options.StrCapacity = 1024 ] - The size, in bytes, passed to
+     * `VarSetStrCapacity` before incrementally building the output text. This is to avoid resizing
+     * the string.
+     */
     __New(FormatSpecifierNames, Options?) {
         options := FormatStrConstructor.Options(Options ?? unset)
         names := FormatStr_QuickSort(
@@ -223,7 +248,7 @@ class FormatStrConstructor {
           , DefaultOperators: '[\x{2000}-\x{2009}]'
           , DefaultOperatorsLowerCode: 0x2000
           , FormatCodes: ''
-          , IndentLen: 4
+        ;   , IndentLen: 4 not yet implemented
           , SortLocaleName: 0
           , SortFlags: 0
           , SortNLSVersionInfo: 0
