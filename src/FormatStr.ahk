@@ -11,13 +11,11 @@
 #include tokens.ahk
 
 /**
- * ## Introduction
  *
  * `FormatStr` makes it easy to create a unique, customizable, and extensible text formatting system
  * just like the standard printf-style format codes "%d", "%u", "%i", and the like. With a feature-rich
  * API based on caller-defined callback functions, there's no limit to the possibilities.
  *
- * The core functionality involves defining a list of symbols, called "format specifiers", which
  * will ultimately be replaced by some data when producing the output text. Along with the format
  * specifiers the caller must define one or more callback functions that facilitates the formatting
  * logic. Format specifiers can contain any character except the colon and are enclosed in percent
