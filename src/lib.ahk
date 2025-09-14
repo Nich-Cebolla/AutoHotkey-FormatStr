@@ -1,14 +1,4 @@
 ﻿
-
-; FormatCode, FormatCodeParams, ConditionalGroupToken, FormatStrObj
-FormatStr_FormatCode_AllSpecifiers(DefaultFormatCode, FormatCodeParams, ConditionalGroupToken, *) {
-    if ConditionalGroupToken {
-        ConditionalGroupToken.SetFlag(FORMATSTR_FLAG_ALLCONDITIONS, 1)
-    } else {
-        throw Error('The "!a" format code may only be used within a conditional group.', -1)
-    }
-}
-
 FormatStr_SortCompare(address, localeName, flags, NLSVersionInfo, a, b) {
     if result := DllCall(
         address
@@ -29,8 +19,50 @@ FormatStr_SortCompare(address, localeName, flags, NLSVersionInfo, a, b) {
     }
 }
 
+FormatStr_GetPrototypes(Base) {
+    if not Base is Array {
+        throw TypeError('``Base`` must inherit from ``Array``.', -1)
+    }
+    result := FormatStr_PrototypeCollection()
+    prototypes := FormatStrConstructor.Prototypes
+    result.Length := prototypes.Length
+    _base := _GetBase(FormatStrTokenBase.Prototype)
+    ObjSetBase(_base, Base)
+    base_formatSpecifier := _GetBase(FormatStrToken_FormatSpecifierBase.Prototype)
+    ObjSetBase(base_formatSpecifier, _base)
+    _Proc([ FORMATSTR_TYPE_INDEX_CONDITIONALGROUP, FORMATSTR_TYPE_INDEX_PLAINTEXT ], _base)
+    _Proc(
+        [   FORMATSTR_TYPE_INDEX_FORMATCODE
+          , FORMATSTR_TYPE_INDEX_FORMATSPECIFIER
+          , FORMATSTR_TYPE_INDEX_SIGNIFICANTCONDITION
+          , FORMATSTR_TYPE_INDEX_SIMPLECONDITION
+        ]
+      , base_formatSpecifier
+    )
+    _Proc([ FORMATSTR_TYPE_INDEX_DEFAULTFORMATCODE ], prototypes[FORMATSTR_TYPE_INDEX_FORMATCODE])
+
+    return result
+
+    _GetBase(proto) {
+        local base := []
+        for prop in proto.OwnProps() {
+            base.DefineProp(prop, proto.GetOwnPropDesc(prop))
+        }
+        return base
+    }
+    _Proc(indices, base) {
+        for i in indices {
+            result[i] := _GetBase(prototypes[i])
+            ObjSetBase(result[i], base)
+        }
+    }
+}
+
 FormatStr_SetConstants() {
     global
+    if IsSet(FORMATSTR_TYPE_INDEX_CONDITIONALGROUP) {
+        throw Error('Values have already been initialized.', -1)
+    }
     FORMATSTR_TYPE_INDEX_CONDITIONALGROUP :=
     FORMATSTR_TYPE_INDEX_DEFAULTFORMATCODE :=
     FORMATSTR_TYPE_INDEX_FORMATCODE :=
@@ -39,7 +71,6 @@ FormatStr_SetConstants() {
     FORMATSTR_TYPE_INDEX_SIGNIFICANTCONDITION :=
     FORMATSTR_TYPE_INDEX_SIMPLECONDITION :=
     0
-
     local i := 0
     FORMATSTR_FLAG_ALLCONDITIONS := ++i
 
