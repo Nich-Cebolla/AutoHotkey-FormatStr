@@ -77,7 +77,6 @@ class FormatStr_FormatCodeParamsCollection extends Array {
         Set => this.SetItem(Value, Index)
     }
 }
-
 class FormatStr_FormatCodeCollection extends Map {
 }
 class FormatStr_ConstructorCollection extends FormatStr_PrototypeCollection {
