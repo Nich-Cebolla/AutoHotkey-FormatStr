@@ -275,6 +275,7 @@ class FormatStr {
         proto.FormatCodes := proto.FormatCodeMap := proto.SpecifierCodes := proto.SpecifierCodeMap := proto.GlobalFormatCodes := ''
     }
     __New(FormatStr) {
+        this.FormatStr := FormatStr
         _formatStr := ''
         VarSetStrCapacity(&_formatStr, StrLen(FormatStr))
 
@@ -377,7 +378,7 @@ class FormatStr {
         ; are treated as escape characters, whether or not the escape sequence was necessary in that
         ; context. Here we process escape sequences and replace with tokens indicating literal
         ; characters, which will later be re-replaced with the correct character.
-        while RegExMatch(FormatStr, '(.*)(\\+)([{}%])', &match, pos) {
+        while RegExMatch(FormatStr, 's)(.*?)(\\+)([{}%])', &match, pos) {
             pos := match.Pos + match.Len
             _formatStr .= match[1]
             if match.Len[2] == 1 {
