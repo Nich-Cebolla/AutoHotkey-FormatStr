@@ -534,8 +534,9 @@ class FormatStr {
             }
         }
         ; Process any trailing text.
-        if pos !== StrLen(_formatStr) {
-            match := [SubStr(_formatStr, pos)]
+        len := StrLen(_formatStr)
+        if pos !== StrLen(_formatStr) + 1 {
+            RegExMatch(_formatStr, 's)(.*)', &match, pos)
             _Proc(1, tokens, globalFormatCodes, FORMATSTR_TYPE_INDEX_SIMPLECONDITION)
         }
 
@@ -608,9 +609,9 @@ class FormatStr {
                 }
                 pos := _match.Pos + _match.Len
             }
-            if pos !== StrLen(match[index]) {
+            if pos !== StrLen(match[index]) + match.Pos[index] {
                 ; Treat trailing text as plaintext.
-                tokens.Push(constructors[FORMATSTR_TYPE_INDEX_PLAINTEXT].Call(tokens.Length + 1, _ReplaceLiteralTokens(SubStr(match[index], pos, StrLen(match[index]) - pos + 1))))
+                tokens.Push(constructors[FORMATSTR_TYPE_INDEX_PLAINTEXT].Call(tokens.Length + 1, _ReplaceLiteralTokens(SubStr(match[index], pos, StrLen(match[index]) + match.Pos[index] - pos + 1))))
             }
         }
         _ReplaceLiteralTokens(str) => StrReplace(StrReplace(StrReplace(StrReplace(str, LITERAL_BACKSLASH, '\'), LITERAL_CLOSE, '}'), LITERAL_PERCENT, '%'), LITERAL_OPEN, '{')
